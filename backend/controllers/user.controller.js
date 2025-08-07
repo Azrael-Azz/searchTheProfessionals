@@ -38,9 +38,7 @@ export async function searchUsers(req, res) {
 
     try {
         const users = await User.find({ 
-            //$regex: querysearch for documents where username matches the regular expression query
             username: { $regex: query, $options: "i" } 
-            //$options: "i" makes the regex search case-insensitive
         }).select("username -_id"); //to exclude id and only show username
 
         res.json(users);

@@ -9,10 +9,10 @@ import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-// Get all users (protected)
+// Get all users
 router.get("/list", authMiddleware, getAllUsers);
 
-// Search users (protected)
+// Search users
 router.get("/search", authMiddleware, searchUsers);
 
 // Get all users in home page

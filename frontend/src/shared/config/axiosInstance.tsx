@@ -11,7 +11,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`; // 🔧 FIXED: closing quote
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
       localStorage.clear();
       setTimeout(() => {
         window.location.href = "/";
-      }, 1500); // 🔧 FIXED: Uncommented delay
+      }, 1500); 
     }
     return Promise.reject(error);
   }

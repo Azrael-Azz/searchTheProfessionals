@@ -15,7 +15,6 @@ import RoleGuard from './shared/guards/roleGuard';
 function App() {
   return (
     <Routes>
-      {/* Redirect base path to login */}
       <Route path='/' element={<Navigate to="/login" replace />} />
 
       {/* Login route */}
@@ -48,7 +47,7 @@ function App() {
         }
       />
 
-      {/* Dynamic user profile route */}
+      {/* User profile route */}
       <Route
         path='/profile/:username'
         element={

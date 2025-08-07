@@ -23,9 +23,8 @@ export default function Home() {
   const fetchAllUsers = () => {
   setLoading(true);
   getAllUsersApi()
-    
-    .then((res: AxiosResponse<{ users: IUser[] }>) => {
-      setUsers(res.data.users);
+    .then((res: AxiosResponse<{ users?: IUser[] }>) => {
+      setUsers(res.data.users ?? []);
     })
     .catch((err: AxiosError) => {
       const message = (err.response?.data as string) ?? 'Server Error';
@@ -52,8 +51,8 @@ export default function Home() {
 
   setLoading(true);
   searchUsersApi(searchTerm)
-    .then((res: AxiosResponse<{ users: IUser[] }>) => {
-      setUsers(res.data.users);
+    .then((res: AxiosResponse<{ users?: IUser[] }>) => {
+      setUsers(res.data.users ?? []);
     })
     .catch((err: AxiosError) => {
       const message = (err.response?.data as string) ?? 'Search failed';
@@ -63,7 +62,6 @@ export default function Home() {
       setLoading(false);
     });
   };
-
 
   const handleProfileClick = (username: string) => {
     navigate(`/profile/${username}`);

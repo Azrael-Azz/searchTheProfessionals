@@ -1,4 +1,4 @@
-// let users = []; //In-memory usage storage(temporary)
+// let users = []; In-memory usage storage(temporary)
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
