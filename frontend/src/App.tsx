@@ -2,15 +2,13 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 
 import Login from './features/auth/login/loginPage';
 import Register from './features/auth/register/registerPage';
-import Home from './features/home/homepage';
+import Home from './features/home/homePage';
 import Profile from './features/profile/profile';
 import NotFoundPage from './features/notFound/notFound';
 
 // Guards
 import AuthGuard from './shared/guards/authGuard';
-import RegisterGuard from './shared/guards/registerGuard';
 import HomeGuard from './shared/guards/homeGuard';
-import RoleGuard from './shared/guards/roleGuard';
 
 function App() {
   return (
@@ -18,46 +16,33 @@ function App() {
       <Route path='/' element={<Navigate to="/login" replace />} />
 
       {/* Login route */}
-      <Route
-        path='/login'
-        element={
-          <AuthGuard>
-            <Login />
-          </AuthGuard>
-        }
+      <Route path='/login' element={
+        <AuthGuard>
+          <Login />
+        </AuthGuard>
+      }
       />
 
       {/* Register route */}
-      <Route
-        path='/register'
-        element={
-          <RegisterGuard>
-            <Register />
-          </RegisterGuard>
-        }
+      <Route path='/register' element={
+        <AuthGuard>
+          <Register />
+        </AuthGuard>
+      }
       />
 
       {/* Home route */}
-      <Route
-        path='/home'
-        element={
-          <HomeGuard>
-            <Home />
-          </HomeGuard>
-        }
+      <Route path='/home' element={
+        <HomeGuard>
+          <Home />
+        </HomeGuard>
+      }
       />
 
       {/* User profile route */}
-      <Route
-        path='/profile/:username'
-        element={
-          <RoleGuard allowedRoles={['admin', 'consumer']}>
-            <Profile />
-          </RoleGuard>
-        }
-      />
+      <Route path="/profile/:username" element={<Profile />} />
 
-      {/* Not Found route fallback */}
+      {/* Not Found route */}
       <Route path='/notFound' element={<NotFoundPage />} />
       <Route path='*' element={<NotFoundPage />} />
     </Routes>

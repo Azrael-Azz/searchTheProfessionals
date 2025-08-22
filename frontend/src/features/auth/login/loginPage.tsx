@@ -2,25 +2,25 @@ import { useState, type FormEvent, type ChangeEvent } from 'react'
 import '../login/login.css'
 import { useNavigate } from 'react-router-dom';
 import type { AxiosResponse, AxiosError } from 'axios';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { loginApi } from '../../../shared/config/api.tsx';
 
 export default function Login() {
-const [formData , setFormData] = useState({username:'', password:''})
+    const [formData, setFormData] = useState({ username: '', password: '' })
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
-    
-    const handleChange = (e: ChangeEvent <HTMLInputElement>) => {
-        const {name,value} = e.target;
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
 
         //... means spread bhitrako matra lincha
-        setFormData({...formData,[name]: value})
+        setFormData({ ...formData, [name]: value })
 
     }
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
-        if(loading){
+
+        if (loading) {
             return;
         }
 
@@ -29,19 +29,19 @@ const [formData , setFormData] = useState({username:'', password:''})
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('currentUser', JSON.stringify(res.data.userData));
             navigate('/home')
-            
+
         }
         ).catch((err: AxiosError) => {
-           const message = err.response?.data as String ?? 'Server Error';
-           alert(message)
-           toast.error(message);
+            const message = err.response?.data as String ?? 'Server Error';
+            alert(message)
+            toast.error(message);
         }).finally(() => {
             setLoading(false);
         }
-        );  
+        );
     }
 
-    return(
+    return (
         <div className="login-wrapper">
             <form onSubmit={handleSubmit} className="login-form">
                 <h3>Login</h3>

@@ -9,6 +9,7 @@ const HomeGuard = ({ children }: HomeGuardProps) => {
   const token = localStorage.getItem('token');
   const user = localStorage.getItem('currentUser');
 
+  //redirect to login if token or user unavailable
   if (!token || !user) {
     return <Navigate to="/login" replace />;
   }

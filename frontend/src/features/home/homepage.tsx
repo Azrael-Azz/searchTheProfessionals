@@ -20,20 +20,28 @@ export default function Home() {
     fetchAllUsers();
   }, []);
 
-  const fetchAllUsers = () => {
+const fetchAllUsers = () => {
   setLoading(true);
-  getAllUsersApi()
-    .then((res: AxiosResponse<{ users?: IUser[] }>) => {
-      setUsers(res.data.users ?? []);
-    })
-    .catch((err: AxiosError) => {
-      const message = (err.response?.data as string) ?? 'Server Error';
-      toast.error(message);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  };
+  try {
+    getAllUsersApi()
+      .then((res: AxiosResponse<IUser[]>) => {
+        console.log("Fetched users response:", res.data);
+        setUsers(res.data ?? []);
+      })
+      .catch((err: AxiosError) => {
+        console.error("API Error:", err.response || err.message);
+        toast.error('Failed to fetch users');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  } catch (err) {
+    console.error("Unexpected Error in fetchAllUsers:", err);
+    toast.error("Something went wrong");
+    setLoading(false);
+  }
+};
+
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);

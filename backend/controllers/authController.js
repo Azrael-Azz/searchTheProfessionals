@@ -1,29 +1,27 @@
-// let users = []; In-memory usage storage(temporary)
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
 import User from "../models/user.model.js";
 
 export async function register(req, res) {
-    try{
+    try {
         const { email, username, password } = req.body;
 
-        const existing = await User.findOne({username});
-         if(existing) return res.status(400).send({message: 'Username already exists'});
-     
-         //10 is the level of complexity of encrypted password
-         const hashedPassword = await bcrypt.hash(password,10);
-         
-         const user = new User({email, username, password: hashedPassword });
-         await user.save();
-     
-         
-    } catch(e){
+        const existing = await User.findOne({ username, email });
+        if (existing) return res.status(400).send({ message: 'User already exists' });
+
+        //10 is the level of complexity of encrypted password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = new User({ email, username, password: hashedPassword });
+        await user.save();
+
+
+    } catch (e) {
         return res.status(500).send(e);
-    } finally{
-        res.status(201).json({message: "User registered successfully"});
+    } finally {
+        res.status(201).json({ message: "User registered successfully" });
     }
-    
+
 }
 
 export async function login(req, res) {

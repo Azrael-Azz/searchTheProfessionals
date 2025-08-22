@@ -1,7 +1,7 @@
 //Initialization
 import app from './app.js';
 import mongoose from 'mongoose';
-import userRoutes from './routes/user.route.js';
+import userRoutes from './routes/userRoutes.js';
 
 // MongoDB URI
 const uri = "mongodb+srv://SujalMazan:test123@sujalmazan.sbbxb6c.mongodb.net/?retryWrites=true&w=majority&appName=SujalMazan";
@@ -9,11 +9,6 @@ const clientOptions = { serverApi: { version: '1', strict: true, deprecationErro
 
 // Register routes before starting the server
 app.use('/api/users', userRoutes);
-
-// Homepage route
-app.get('/', (_req, res) => {
-  res.send("This is the Homepage.");
-});
 
 // Start MongoDB connection and then the server
 async function run() {

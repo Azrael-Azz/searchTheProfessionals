@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import {
-  getAllUsers,
-  searchUsers,
-  getUserProfile
+    getAllUsers,
+    searchUsers,
+    getUserProfile
 } from "../controllers/user.controller.js";
 
 import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-// Get all users
+// Get all users (protected)
 router.get("/list", authMiddleware, getAllUsers);
 
-// Search users
+// Search users (protected)
 router.get("/search", authMiddleware, searchUsers);
 
 // Get all users in home page
